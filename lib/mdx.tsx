@@ -48,6 +48,17 @@ function Video({ src, title }: { src: string; title: string }) {
   );
 }
 
+function Demo({ src, title }: { src: string; title: string }) {
+  return (
+    <figure className="not-prose my-8">
+      <iframe src={src} title={title} loading="lazy" className="h-[640px] w-full rounded-xl border border-border bg-black" />
+      <figcaption className="mt-2 text-sm text-muted">
+        {title} · <a href={src} className="text-accent underline underline-offset-4">Open full screen</a>
+      </figcaption>
+    </figure>
+  );
+}
+
 function Todo({ children }: { children: ReactNode }) {
   return <p className="todo">TODO: {children}</p>;
 }
@@ -58,6 +69,7 @@ const components = {
   Shot,
   Video,
   YouTube,
+  Demo,
   Todo,
 };
 

@@ -155,6 +155,7 @@ export const projects: Project[] = [
       "Batched, failure-tolerant replay into the Foundry Streams API",
     ],
     code: "https://github.com/nduy1234/rf-sentinel",
+    demo: { href: "/demos/rf-sentinel", label: "Mock demo" },
   },
   {
     slug: "adai",
@@ -190,6 +191,7 @@ export const projects: Project[] = [
     stack: ["Python", "Decimal", "Docker", "GitHub Actions", "A2A over HTTP"],
     featured: false,
     code: "https://github.com/nduy1234/gaia-green-agent",
+    demo: { href: "/demos/gaia-green-agent", label: "Mock demo" },
   },
   {
     slug: "connectapp",
@@ -201,6 +203,7 @@ export const projects: Project[] = [
     stack: ["React", "TypeScript", "Supabase", "Capacitor", "Google OAuth", "Tailwind"],
     featured: false,
     code: "https://github.com/nduy1234/connectapp",
+    demo: { href: "/demos/connectapp", label: "Mock demo" },
   },
 ];
 

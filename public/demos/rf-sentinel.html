@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RF-Sentinel mock demo | Day Nguyen</title>
+<meta name="description" content="30-second mock demo of RF-Sentinel: Sub-GHz spectrum monitoring that flags jamming, spoofing, and drift. Simulated data.">
+<style>
+:root{--bg:#0b0d10;--card:#13161b;--fg:#e8eaed;--mut:#9aa0a6;--bd:#262a31;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;--ac:#8b93ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+header{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--bd)}
+h1{font-size:15px;margin:0}.badge{font-size:12px;color:var(--warn);border:1px dashed var(--warn);border-radius:99px;padding:2px 10px}
+a{color:var(--ac)}button{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:6px;padding:6px 12px;cursor:pointer;font:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.bar{height:3px;background:var(--bd)}.bar i{display:block;height:100%;width:0;background:var(--ac)}
+main{display:grid;gap:12px;padding:16px;grid-template-columns:1fr}@media(min-width:860px){main{grid-template-columns:2fr 1fr}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px}.card h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);margin:0 0 8px}
+canvas{width:100%;display:block;border-radius:6px;background:#000}
+.status{font-size:22px;font-weight:700}.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.meter{height:10px;border-radius:5px;background:var(--bd);overflow:hidden}.meter i{display:block;height:100%;width:0;transition:width .4s,background .4s}
+.row{display:flex;justify-content:space-between;font-size:13px;margin:4px 0}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+ol{margin:0;padding-left:18px;max-height:220px;overflow:auto;font-size:13px}li{margin:3px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>RF-Sentinel · Sub-GHz link monitor</h1>
+  <span class="badge">Mock demo · simulated data, not a recording</span>
+  <span><button id="replay">Replay</button> <a href="/work/rf-sentinel">Case study</a></span>
+</header>
+<div class="bar"><i id="prog"></i></div>
+<main>
+  <section class="card">
+    <h2>Spectrum waterfall · 864 MHz ± 1 MHz</h2>
+    <canvas id="wf" width="640" height="260" role="img" aria-label="Animated spectrum waterfall with three emitters; anomalies appear as jamming, spoofing, and drift"></canvas>
+  </section>
+  <section class="card">
+    <h2>Link status</h2>
+    <div id="status" class="status ok" aria-live="polite">Normal</div>
+    <div class="row"><span>Composite score</span><span id="score" class="mono">0.00</span></div>
+    <div class="meter"><i id="meter"></i></div>
+    <div class="row"><span>Power z-score</span><span id="z" class="mono">0.0</span></div>
+    <div class="row"><span>Spectral flatness</span><span id="flat" class="mono">0.12</span></div>
+    <div class="row"><span>Centroid offset</span><span id="cent" class="mono">0 kHz</span></div>
+    <h2 style="margin-top:14px">Agent triage log</h2>
+    <ol id="log"></ol>
+  </section>
+</main>
+<script>
+const W=640,H=260,cv=document.getElementById('wf'),cx=cv.getContext('2d');
+const $=id=>document.getElementById(id),D=30000;let t0,raf,phase,logged;
+const events=[
+ [2,'ok','Baseline learned on 3 emitters (z-score + CUSUM + VAE).'],
+ [8,'bad','JAMMING: wideband power +22 dB, flatness 0.71. Threat agent: link denial of service.'],
+ [11,'bad','Response agent: recommend frequency hop to 868.3 MHz.'],
+ [15,'ok','Channel recovered. Baseline not updated during anomaly.'],
+ [17,'warn','SPOOFING: emitter 2 centroid shifted +50 kHz, same power profile.'],
+ [21,'warn','Signal ID agent: FSK telemetry; band guardrail confirms ISM 863-870 MHz.'],
+ [24,'warn','DRIFT: CUSUM alarm on emitter 3 centroid.'],
+ [28,'ok','Summary: 3 anomalies flagged, operator notified.']];
+function state(s){if(s>=8&&s<15)return'jam';if(s>=17&&s<23)return'spoof';if(s>=24&&s<28)return'drift';return'normal'}
+function row(s,st){const img=cx.createImageData(W,1),d=img.data;const em=[180,320+(st==='spoof'?40:0),470+(st==='drift'?(s-24)*14:0)];
+ for(let x=0;x<W;x++){let p=-70+Math.random()*6;for(const e of em){p=Math.max(p,-58-((x-e)**2)/30)}
+  if(st==='jam')p=Math.max(p,-50+Math.random()*8);const v=Math.max(0,Math.min(1,(p+75)/30));
+  d[x*4]=v>.6?255:v*400;d[x*4+1]=v*180;d[x*4+2]=v<.4?120+v*300:60;d[x*4+3]=255}
+ cx.drawImage(cv,0,0,W,H-1,0,1,W,H-1);cx.putImageData(img,0,0)}
+function ui(s,st){const m={normal:[.08,.4,.12,0,'Normal','ok'],jam:[.91,6.8,.71,0,'Jamming detected','bad'],spoof:[.74,1.1,.15,50,'Spoofing suspected','warn'],drift:[.66,.9,.13,Math.round((s-24)*35),'Frequency drift','warn']}[st];
+ const n=m[0]+(Math.random()-.5)*.04;$('score').textContent=n.toFixed(2);$('meter').style.width=(n*100)+'%';$('meter').style.background=getComputedStyle(document.body).getPropertyValue('--'+m[5]);
+ $('z').textContent=(m[1]+(Math.random()-.5)*.4).toFixed(1);$('flat').textContent=m[2].toFixed(2);$('cent').textContent='+'+m[3]+' kHz';
+ if(phase!==st){phase=st;$('status').textContent=m[4];$('status').className='status '+m[5]}}
+function frame(now){const ms=now-t0,s=ms/1000;$('prog').style.width=Math.min(100,ms/D*100)+'%';const st=state(s);row(s,st);ui(s,st);
+ for(const [at,c,msg] of events)if(s>=at&&!logged.has(at)){logged.add(at);const li=document.createElement('li');li.className=c;li.innerHTML='<span class="mono">'+('0:'+String(at).padStart(2,'0'))+'</span> '+msg;$('log').append(li);li.scrollIntoView({block:'nearest'})}
+ if(ms<D)raf=requestAnimationFrame(frame)}
+function start(){cancelAnimationFrame(raf);cx.fillStyle='#000';cx.fillRect(0,0,W,H);$('log').innerHTML='';logged=new Set();phase=null;t0=performance.now();raf=requestAnimationFrame(frame)}
+$('replay').onclick=start;start();
+</script>
+</body>
+</html>
