@@ -158,6 +158,23 @@ export const projects: Project[] = [
     demo: { href: "/demos/rf-sentinel", label: "Interactive demo" },
   },
   {
+    slug: "powerup",
+    title: "PowerUP",
+    problem: "When the utility cuts power for wildfire risk, home batteries must stay full for the people who need them most, and no bad order can drain them.",
+    summary:
+      "The disaster layer for a home-battery fleet: it fills batteries by risk ahead of a wildfire shutoff (Medical Baseline homes first), guards every order with eight checks, and plans opt-in neighborhood islands behind existing utility switches.",
+    context: "InnovateLA Dual-Use Hackathon, USC · October 2026",
+    stack: ["JavaScript", "Node.js", "Python", "OpenADR-style orders", "SCE & CAISO data", "GitHub Pages"],
+    featured: true,
+    highlights: [
+      "Replays the real October 2026 Malibu shutoff on the 456 homes behind one SCE switch",
+      "Interlock guard: 8 ordered checks that can only shrink, slow, or stop an order",
+      "In the replay, 0 of 189 battery homes go dark with the guard on, vs 189 with it off",
+    ],
+    code: "https://github.com/nduy1234/PowerUp",
+    demo: { href: "https://mrbese.github.io/PowerUp/", label: "Live demo" },
+  },
+  {
     slug: "adai",
     title: "AdAI",
     problem: "Getting quotes for a service job means calling vendor after vendor and comparing numbers that aren't itemized the same way.",

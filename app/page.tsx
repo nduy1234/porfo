@@ -75,7 +75,7 @@ export default function Home() {
       {/* Work */}
       <section aria-labelledby="work" className="border-t border-border py-16">
         <SectionHead id="work" eyebrow="Featured work" title="Shipped AI products, with the code to prove it" />
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           {featured.map((p) => (
             <ProjectCard key={p.slug} p={p} />
           ))}
