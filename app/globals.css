@@ -167,13 +167,6 @@ h2[id] {
 .prose th {
   font-weight: 600;
 }
-.todo {
-  border: 1px dashed #b45309;
-  background: color-mix(in srgb, #f59e0b 12%, transparent);
-  border-radius: 6px;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.9rem;
-}
 .mermaid-box svg {
   max-width: 100%;
   height: auto;

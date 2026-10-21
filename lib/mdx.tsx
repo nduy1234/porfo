@@ -59,10 +59,6 @@ function Demo({ src, title }: { src: string; title: string }) {
   );
 }
 
-function Todo({ children }: { children: ReactNode }) {
-  return <p className="todo">TODO: {children}</p>;
-}
-
 const components = {
   h2: ({ children }: { children?: ReactNode }) => <h2 id={slugify(children)}>{children}</h2>,
   pre: Pre,
@@ -70,7 +66,6 @@ const components = {
   Video,
   YouTube,
   Demo,
-  Todo,
 };
 
 export async function renderCaseStudy(slug: string) {

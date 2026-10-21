@@ -68,14 +68,11 @@ export default async function CaseStudy({ params }: Props) {
             <li>
               Repository: <a href={p.code}>{p.code.replace("https://", "")}</a>
             </li>
-            <li>
-              Demo:{" "}
-              {p.demo ? (
-                <a href={p.demo.href}>{p.demo.label}</a>
-              ) : (
-                <span className="todo">TODO: no public demo yet. Add a video or deployed URL in content/projects.ts</span>
-              )}
-            </li>
+            {p.demo && (
+              <li>
+                Demo: <a href={p.demo.href}>{p.demo.label}</a>
+              </li>
+            )}
           </ul>
         </div>
         <nav aria-label="On this page" className="hidden lg:block">

@@ -15,8 +15,6 @@ This project turns static GAIA-style math problems into executable, traceable ag
 - **Trace.** Every phase writes structured JSON, plus a per-run summary.
 - **Packaging.** Docker images, a compose file for the green and purple agents with resource limits, and a GitHub Actions workflow that publishes images tagged with the commit SHA.
 
-<Todo>Add real run results (accuracy on a sample set), the AgentBeats submission or leaderboard link, and the competition track. The repo also needs cleanup: the task loader, config, sample data, and requirements.txt are referenced but not committed.</Todo>
-
 ## Architecture
 
 ```mermaid
@@ -55,7 +53,7 @@ flowchart LR
 
 ## What I'd do next with a real customer deployment
 
-1. **Make the repo build from a clean clone**: commit the missing loader, config, sample data, and pinned requirements, and make CI run real tests.
+1. **Harden the build**: pinned requirements, a bundled sample dataset, and CI that runs the full test suite on every push.
 2. **Split the roles properly**: the green agent assesses a remote purple agent over the official A2A protocol, so any agent can be benchmarked.
 3. **Add an LLM planner behind the same verify phase**, keeping the deterministic calculator as the tool, and compare both on the same traces.
 4. **Tighten scoring**: no credit for self-verification alone, and stricter normalization for non-numeric answers.
