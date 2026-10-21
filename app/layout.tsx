@@ -75,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="border-t border-border">
           <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <p>
-              © {new Date().getFullYear()} {profile.name}. Built with Next.js, statically exported.
+              © {new Date().getFullYear()} {profile.name}
             </p>
             <ul className="flex gap-4">
               <li>

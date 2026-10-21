@@ -23,11 +23,7 @@ export default function Home() {
     <div className="mx-auto max-w-5xl px-4 sm:px-6">
       {/* Hero */}
       <section aria-labelledby="hero-title" className="py-16 sm:py-24">
-        <p className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-xs text-muted">
-          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-emerald-500" />
-          {profile.availability}
-        </p>
-        <h1 id="hero-title" className="mt-6 text-4xl font-semibold tracking-tight sm:text-6xl">
+        <h1 id="hero-title" className="text-4xl font-semibold tracking-tight sm:text-6xl">
           {profile.name}
         </h1>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">{profile.positioning}</p>
@@ -145,10 +141,7 @@ export default function Home() {
       {/* Contact */}
       <section aria-labelledby="contact" className="border-t border-border py-16">
         <SectionHead id="contact" eyebrow="Contact" title="Have a customer problem that needs an agent?" />
-        <p className="max-w-xl text-muted">
-          I&apos;m looking for Forward Deployed Engineer and Product Engineer roles. The fastest way to reach me is email.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3">
           <a href={`mailto:${profile.email}`} className={`${btn} bg-accent text-accent-fg hover:opacity-90`}>
             {profile.email}
           </a>

@@ -6,7 +6,6 @@ export const profile = {
   role: "Forward Deployed & Product Engineer",
   positioning:
     "AI engineer who ships customer-facing agents: voice AI, fraud detection, and workflow automation. I go from customer problem to working product in days.",
-  availability: "Open to Forward Deployed Engineer and Product Engineer roles",
   email: "nduy1234@gmail.com",
   github: "https://github.com/nduy1234",
   linkedin: "https://www.linkedin.com/in/daynguyen",
