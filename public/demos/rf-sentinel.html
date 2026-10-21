@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RF-Sentinel mock demo | Day Nguyen</title>
-<meta name="description" content="30-second mock demo of RF-Sentinel: Sub-GHz spectrum monitoring that flags jamming, spoofing, and drift. Simulated data.">
+<title>RF-Sentinel demo | Day Nguyen</title>
+<meta name="description" content="Interactive demo of RF-Sentinel: Sub-GHz spectrum monitoring that flags jamming, spoofing, and drift.">
 <style>
 :root{--bg:#0b0d10;--card:#13161b;--fg:#e8eaed;--mut:#9aa0a6;--bd:#262a31;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;--ac:#8b93ff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
 header{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--bd)}
-h1{font-size:15px;margin:0}.badge{font-size:12px;color:var(--warn);border:1px dashed var(--warn);border-radius:99px;padding:2px 10px}
+h1{font-size:15px;margin:0}.badge{font-size:12px;color:var(--mut);border:1px solid var(--bd);border-radius:99px;padding:2px 10px}
 a{color:var(--ac)}button{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:6px;padding:6px 12px;cursor:pointer;font:inherit}
 button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 .bar{height:3px;background:var(--bd)}.bar i{display:block;height:100%;width:0;background:var(--ac)}
@@ -25,7 +25,7 @@ ol{margin:0;padding-left:18px;max-height:220px;overflow:auto;font-size:13px}li{m
 <body>
 <header>
   <h1>RF-Sentinel · Sub-GHz link monitor</h1>
-  <span class="badge">Mock demo · simulated data, not a recording</span>
+  <span class="badge">Sample data</span>
   <span><button id="replay">Replay</button> <a href="/work/rf-sentinel">Case study</a></span>
 </header>
 <div class="bar"><i id="prog"></i></div>
