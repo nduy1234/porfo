@@ -35,9 +35,6 @@ export default function Home() {
           <Link href="/#work" className={`${btn} bg-accent text-accent-fg hover:opacity-90`}>
             View work
           </Link>
-          <a href={profile.resume} className={`${btn} border border-border hover:bg-subtle`}>
-            Resume PDF
-          </a>
           <a href={profile.github} className={`${btn} border border-border hover:bg-subtle`}>
             GitHub
           </a>
@@ -114,7 +111,7 @@ export default function Home() {
                   <p className="mt-1 font-semibold">
                     {e.title} ·{" "}
                     {e.href ? (
-                      <a href={e.href} className="text-accent underline-offset-4 hover:underline">
+                      <a href={e.href} className="text-accent underline underline-offset-4">
                         {e.org}
                       </a>
                     ) : (

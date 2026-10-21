@@ -10,7 +10,6 @@ export const profile = {
   email: "nduy1234@gmail.com",
   github: "https://github.com/nduy1234",
   linkedin: "https://www.linkedin.com/in/daynguyen",
-  resume: "/resume.pdf",
   // Short proof points, taken from the resume.
   proof: [
     "AI Engineer at Handshake, evaluating frontier LLM output for AI labs",

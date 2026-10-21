@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: light)", color: "#f5efe6" },
     { media: "(prefers-color-scheme: dark)", color: "#09090b" },
   ],
 };
@@ -30,7 +30,6 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!==
 const nav = [
   { href: "/#work", label: "Work" },
   { href: "/#about", label: "About" },
-  { href: "/resume", label: "Resume" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -63,10 +62,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
               ))}
               <Link
-                href="/resume"
+                href="/#work"
                 className="rounded-md px-2.5 py-1.5 text-muted hover:bg-subtle hover:text-fg sm:hidden"
               >
-                Resume
+                Work
               </Link>
               <ThemeToggle />
             </nav>

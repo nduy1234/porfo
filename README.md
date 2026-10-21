@@ -19,7 +19,6 @@ npm run check-links  # after build: checks every internal link/anchor and extern
 - `content/work/<slug>.mdx`: one case study per project. Available in MDX:
   - ` ```mermaid ` fences render as diagrams; the first `%% alt: ...` line is the accessible description.
   - `<YouTube id="..." title="..." />`, `<Video src="..." title="..." />`, `<Shot src alt width height />`, `<Todo>...</Todo>`.
-- `public/resume.pdf`: the resume served at `/resume`.
 
 ## Deploy (Vercel)
 

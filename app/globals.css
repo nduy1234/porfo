@@ -16,12 +16,12 @@
 }
 
 :root {
-  --bg: #ffffff;
-  --fg: #0a0a0b;
-  --muted: #52525b;
-  --subtle: #f4f4f5;
-  --border: #e4e4e7;
-  --card: #fafafa;
+  --bg: #f5efe6;
+  --fg: #1c1917;
+  --muted: #57534e;
+  --subtle: #ece4d7;
+  --border: #ddd2c1;
+  --card: #faf6ef;
   --accent: #4f46e5;
   --accent-fg: #ffffff;
   color-scheme: light;
