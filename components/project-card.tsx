@@ -62,7 +62,7 @@ export default function ProjectCard({ p, index }: { p: Project; index: number })
     <article
       id={p.slug}
       style={{ "--tint": p.tint } as CSSProperties}
-      className="group relative overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--tint)_30%,var(--border))] bg-[color-mix(in_srgb,var(--tint)_9%,var(--card))] p-6 transition-all hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--tint)_60%,var(--border))] hover:shadow-[0_12px_40px_-16px_color-mix(in_srgb,var(--tint)_45%,transparent)] sm:p-8"
+      className="navy group relative overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--tint)_35%,var(--border))] p-6 shadow-[0_10px_30px_-18px_rgba(15,27,51,0.6)] transition-all hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--tint)_70%,var(--border))] hover:shadow-[0_16px_44px_-16px_color-mix(in_srgb,var(--tint)_50%,transparent)] sm:p-8"
     >
       <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-[var(--tint)] opacity-80" />
       <p className="flex items-baseline justify-between gap-4 font-mono text-xs text-faint">

@@ -172,7 +172,7 @@ export default function Home() {
 
       {/* Contact */}
       <section aria-labelledby="contact" className="py-24">
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-card/70 px-6 py-12 sm:px-12 sm:py-16">
+        <div className="navy relative overflow-hidden rounded-3xl border border-border px-6 py-12 shadow-[0_10px_30px_-18px_rgba(15,27,51,0.6)] sm:px-12 sm:py-16">
           <p className="font-mono text-xs text-faint">
             <span className="text-accent">04</span> / contact
           </p>

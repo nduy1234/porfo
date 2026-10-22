@@ -88,6 +88,21 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Dark navy surface for project and contact cards. Re-scopes the color tokens
+   so every utility inside (text-muted, border-border, bg-fg...) stays legible. */
+.navy {
+  --bg: #0f1b33;
+  --fg: #f1f5f9;
+  --muted: #c8d2e1;
+  --faint: #a3b2c9;
+  --border: #2b3b5e;
+  --subtle: #17264a;
+  --accent: #fdba74;
+  --accent-fg: #0f1b33;
+  background-color: #0f1b33;
+  color: var(--fg);
+}
+
 ::selection {
   background: var(--accent);
   color: var(--accent-fg);
