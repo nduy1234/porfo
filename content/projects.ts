@@ -9,11 +9,19 @@ export const profile = {
   email: "nduy1234@gmail.com",
   github: "https://github.com/nduy1234",
   linkedin: "https://www.linkedin.com/in/daynguyen",
-  // Short proof points, taken from the resume.
-  proof: [
-    "AI Engineer at Handshake, evaluating frontier LLM output for AI labs",
-    "Former founder of Advan, an AI customer-support platform taken through design-partner rollout",
-    "25+ full-stack products shipped across 10+ client engagements (2017–2025)",
+  photo: "/day.png",
+  // Credential chips under the name.
+  credentials: [
+    { mark: "H", title: "AI Engineer", org: "Handshake" },
+    { mark: "A", title: "Founder", org: "Advan" },
+    { mark: "Hv", title: "ALM, Digital Media Design", org: "Harvard" },
+  ],
+  // Proof numbers, all taken from the resume.
+  stats: [
+    { value: "25+", label: "products shipped to production" },
+    { value: "10+", label: "client engagements, embedded with stakeholders" },
+    { value: "7", label: "verticals in customer discovery at Advan" },
+    { value: "70%", label: "peak lift on onboarding and conversion, across 25+ experiments" },
   ],
   about: [
     "I'm a full-stack product engineer and former founder. I build AI agents and customer-facing products end to end, and I work directly with users to make them hold up in the real world.",

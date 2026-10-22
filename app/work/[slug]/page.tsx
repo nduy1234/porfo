@@ -30,38 +30,63 @@ export default async function CaseStudy({ params }: Props) {
   const { content, headings } = await renderCaseStudy(slug);
   const i = projects.indexOf(p);
   const next = projects[(i + 1) % projects.length];
-  const linkCls = "font-medium text-accent underline underline-offset-4";
+  const [kind, when] = p.context.split(" · ");
 
   return (
-    <article className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-      <Link href="/#work" className="text-sm text-muted hover:text-fg">
-        ← All work
-      </Link>
-      <header className="mt-6 max-w-3xl">
-        <p className="font-mono text-xs uppercase tracking-wider text-muted">{p.context}</p>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">{p.title}</h1>
-        <p className="mt-4 text-lg leading-relaxed text-muted">{p.summary}</p>
-        <ul className="mt-6 flex flex-wrap gap-1.5" aria-label="Stack">
-          {p.stack.map((t) => (
-            <li key={t} className="rounded border border-border bg-subtle px-1.5 py-0.5 font-mono text-xs text-muted">
-              {t}
-            </li>
-          ))}
-        </ul>
-        <div className="mt-6 flex flex-wrap gap-4 text-sm">
-          <a href={p.code} className={linkCls}>
-            Code on GitHub
-          </a>
-          {p.demo && (
-            <a href={p.demo.href} className={linkCls}>
-              {p.demo.label}
-            </a>
-          )}
-        </div>
-      </header>
+    <article className="mx-auto max-w-5xl px-5 py-12 sm:py-16">
+      <div className="mx-auto max-w-3xl">
+        <Link href="/#work" className="font-mono text-xs text-faint transition-colors hover:text-fg">
+          ← All work
+        </Link>
+        <header className="rise mt-8">
+          <p className="font-mono text-xs text-faint">
+            <span className="text-accent">Case study</span> / {kind}
+          </p>
+          <h1 className="mt-3 font-serif text-6xl leading-[0.95] tracking-tight sm:text-7xl">{p.title}</h1>
+          <p className="mt-6 text-lg leading-relaxed text-muted sm:text-xl">{p.summary}</p>
 
-      <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_200px]">
-        <div className="prose min-w-0 max-w-3xl">
+          <dl className="mt-10 grid gap-6 border-y border-border py-6 text-sm sm:grid-cols-3">
+            <div>
+              <dt className="font-mono text-xs text-faint">When</dt>
+              <dd className="mt-1">{when ?? kind}</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs text-faint">Stack</dt>
+              <dd className="mt-1 text-muted">{p.stack.join(", ")}</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs text-faint">Links</dt>
+              <dd className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+                {p.demo && (
+                  <a href={p.demo.href} className="font-medium text-accent underline underline-offset-4">
+                    {p.demo.label}
+                  </a>
+                )}
+                <a href={p.code} className="font-medium text-accent underline underline-offset-4">
+                  Code
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </header>
+      </div>
+
+      <div className="mt-6 grid gap-12 xl:grid-cols-[1fr_minmax(0,48rem)_1fr]">
+        <nav aria-label="On this page" className="hidden xl:block">
+          <div className="sticky top-24 ml-auto max-w-[12rem] text-sm">
+            <p className="font-mono text-xs text-faint">On this page</p>
+            <ul className="mt-3 space-y-2 border-l border-border pl-3 text-muted">
+              {[...headings, { id: "links", text: "Links" }].map((h) => (
+                <li key={h.id}>
+                  <a href={`#${h.id}`} className="transition-colors hover:text-fg">
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+        <div className="prose mx-auto w-full min-w-0 max-w-3xl">
           {content}
           <h2 id="links">Links</h2>
           <ul>
@@ -75,26 +100,18 @@ export default async function CaseStudy({ params }: Props) {
             )}
           </ul>
         </div>
-        <nav aria-label="On this page" className="hidden lg:block">
-          <div className="sticky top-20 text-sm">
-            <p className="font-medium">On this page</p>
-            <ul className="mt-3 space-y-2 border-l border-border pl-3 text-muted">
-              {[...headings, { id: "links", text: "Links" }].map((h) => (
-                <li key={h.id}>
-                  <a href={`#${h.id}`} className="hover:text-fg">
-                    {h.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </nav>
       </div>
 
-      <footer className="mt-16 border-t border-border pt-8">
-        <Link href={`/work/${next.slug}`} className="group block">
-          <span className="text-sm text-muted">Next case study</span>
-          <span className="mt-1 block text-xl font-semibold group-hover:text-accent">{next.title} →</span>
+      <footer className="mx-auto mt-20 max-w-3xl">
+        <Link href={`/work/${next.slug}`} className="group block rounded-2xl border border-border bg-card/70 p-6 transition-colors hover:border-accent/50 sm:p-8">
+          <span className="font-mono text-xs text-faint">Next case study</span>
+          <span className="mt-2 flex items-baseline justify-between gap-4">
+            <span className="font-serif text-4xl tracking-tight">{next.title}</span>
+            <span aria-hidden="true" className="text-2xl text-accent transition-transform group-hover:translate-x-1">
+              →
+            </span>
+          </span>
+          <span className="mt-2 block text-muted">{next.problem}</span>
         </Link>
       </footer>
     </article>

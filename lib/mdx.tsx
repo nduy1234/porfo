@@ -31,7 +31,7 @@ function Shot({ src, alt, width, height }: { src: string; alt: string; width: nu
   return (
     <figure className="my-8">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} width={width} height={height} loading="lazy" className="h-auto w-full rounded-xl border border-border" />
+      <img src={src} alt={alt} width={width} height={height} loading="lazy" className="h-auto w-full rounded-2xl border border-border" />
       <figcaption className="mt-2 text-sm text-muted">{alt}</figcaption>
     </figure>
   );
@@ -40,7 +40,7 @@ function Shot({ src, alt, width, height }: { src: string; alt: string; width: nu
 function Video({ src, title }: { src: string; title: string }) {
   return (
     <figure className="my-8">
-      <video controls preload="metadata" className="aspect-video w-full rounded-xl border border-border bg-black" aria-label={title}>
+      <video controls preload="metadata" className="aspect-video w-full rounded-2xl border border-border bg-black" aria-label={title}>
         <source src={src} type="video/mp4" />
       </video>
       <figcaption className="mt-2 text-sm text-muted">{title}</figcaption>
@@ -51,7 +51,7 @@ function Video({ src, title }: { src: string; title: string }) {
 function Demo({ src, title }: { src: string; title: string }) {
   return (
     <figure className="not-prose my-8">
-      <iframe src={src} title={title} loading="lazy" className="h-[640px] w-full rounded-xl border border-border bg-black" />
+      <iframe src={src} title={title} loading="lazy" className="h-[640px] w-full rounded-2xl border border-border bg-black" />
       <figcaption className="mt-2 text-sm text-muted">
         {title} · <a href={src} className="text-accent underline underline-offset-4">Open full screen</a>
       </figcaption>

@@ -6,12 +6,14 @@
   --color-bg: var(--bg);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
+  --color-faint: var(--faint);
   --color-subtle: var(--subtle);
   --color-border: var(--border);
   --color-card: var(--card);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-serif-display), "Iowan Old Style", Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
@@ -19,37 +21,43 @@
   --bg: #f5efe6;
   --fg: #1c1917;
   --muted: #57534e;
+  --faint: #66605a;
   --subtle: #ece4d7;
   --border: #ddd2c1;
   --card: #faf6ef;
-  --accent: #4f46e5;
+  --accent: #a63a0c;
   --accent-fg: #ffffff;
+  --glow: rgba(166, 58, 12, 0.1);
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #09090b;
-    --fg: #fafafa;
-    --muted: #a1a1aa;
-    --subtle: #18181b;
-    --border: #27272a;
-    --card: #111113;
-    --accent: #8b93ff;
-    --accent-fg: #09090b;
+    --bg: #12100e;
+    --fg: #f2ede4;
+    --muted: #b8afa3;
+    --faint: #968c80;
+    --subtle: #1f1c18;
+    --border: #2e2a25;
+    --card: #191714;
+    --accent: #f08a4b;
+    --accent-fg: #12100e;
+    --glow: rgba(240, 138, 75, 0.1);
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #09090b;
-  --fg: #fafafa;
-  --muted: #a1a1aa;
-  --subtle: #18181b;
-  --border: #27272a;
-  --card: #111113;
-  --accent: #8b93ff;
-  --accent-fg: #09090b;
+  --bg: #12100e;
+  --fg: #f2ede4;
+  --muted: #b8afa3;
+  --faint: #968c80;
+  --subtle: #1f1c18;
+  --border: #2e2a25;
+  --card: #191714;
+  --accent: #f08a4b;
+  --accent-fg: #12100e;
+  --glow: rgba(240, 138, 75, 0.1);
   color-scheme: dark;
 }
 
@@ -61,12 +69,28 @@ html {
   html {
     scroll-behavior: auto;
   }
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
 }
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  /* Soft warm light from the top plus fine paper grain. */
+  background-image:
+    radial-gradient(60rem 30rem at 50% -10rem, var(--glow), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, repeat;
   color: var(--fg);
   -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
 }
 
 :focus-visible {
@@ -80,29 +104,37 @@ h2[id] {
   scroll-margin-top: 5rem;
 }
 
+.rise {
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
 /* Case study prose */
 .prose {
   line-height: 1.75;
   color: var(--fg);
+  font-size: 1.0625rem;
 }
 .prose > * + * {
   margin-top: 1.1em;
 }
 .prose h2 {
-  margin-top: 2.75em;
-  font-size: 1.5rem;
-  line-height: 1.3;
-  font-weight: 600;
+  margin-top: 2.5em;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
   letter-spacing: -0.01em;
 }
 .prose h3 {
   margin-top: 2em;
   font-size: 1.125rem;
   font-weight: 600;
-}
-.prose p,
-.prose li {
-  color: var(--fg);
 }
 .prose ul,
 .prose ol {
@@ -115,10 +147,10 @@ h2[id] {
   list-style: decimal;
 }
 .prose li + li {
-  margin-top: 0.4em;
+  margin-top: 0.45em;
 }
 .prose li::marker {
-  color: var(--muted);
+  color: var(--accent);
 }
 .prose a {
   color: var(--accent);
@@ -130,7 +162,7 @@ h2[id] {
 }
 .prose code {
   font-family: var(--font-mono);
-  font-size: 0.875em;
+  font-size: 0.85em;
   background: var(--subtle);
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -140,7 +172,7 @@ h2[id] {
   overflow-x: auto;
   background: var(--subtle);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 1rem;
   font-size: 0.85rem;
   line-height: 1.6;
@@ -153,19 +185,23 @@ h2[id] {
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: 0.925rem;
   display: block;
   overflow-x: auto;
 }
 .prose th,
 .prose td {
   border-bottom: 1px solid var(--border);
-  padding: 0.5rem 0.75rem 0.5rem 0;
+  padding: 0.6rem 0.75rem 0.6rem 0;
   text-align: left;
   vertical-align: top;
 }
 .prose th {
   font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
 }
 .mermaid-box svg {
   max-width: 100%;

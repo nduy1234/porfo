@@ -55,7 +55,7 @@ export default function Mermaid({ chart, alt }: { chart: string; alt: string }) 
   }, [chart, id]);
 
   return (
-    <figure className="not-prose my-8 rounded-xl border border-border bg-card p-4 sm:p-6">
+    <figure className="not-prose my-8 rounded-2xl border border-border bg-card p-4 sm:p-6">
       <div ref={ref} role="img" aria-label={alt} className="mermaid-box min-h-40">
         {svg ? (
           <div dangerouslySetInnerHTML={{ __html: svg }} />

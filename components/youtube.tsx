@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function YouTube({ id, title }: { id: string; title: string }) {
   const [play, setPlay] = useState(false);
   return (
-    <div className="not-prose my-8 aspect-video overflow-hidden rounded-xl border border-border bg-black">
+    <div className="not-prose my-8 aspect-video overflow-hidden rounded-2xl border border-border bg-black">
       {play ? (
         <iframe
           className="h-full w-full"

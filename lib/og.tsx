@@ -13,16 +13,16 @@ export function ogImage(title: string, subtitle: string, kicker: string) {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "#09090b",
-          color: "#fafafa",
+          background: "#12100e",
+          color: "#f2ede4",
         }}
       >
-        <div style={{ display: "flex", fontSize: 28, color: "#8b93ff" }}>{kicker}</div>
+        <div style={{ display: "flex", fontSize: 28, color: "#f08a4b" }}>{kicker}</div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 76, fontWeight: 700, letterSpacing: -2 }}>{title}</div>
-          <div style={{ marginTop: 24, fontSize: 32, lineHeight: 1.35, color: "#a1a1aa", maxWidth: 1000 }}>{subtitle}</div>
+          <div style={{ marginTop: 24, fontSize: 32, lineHeight: 1.35, color: "#b8afa3", maxWidth: 1000 }}>{subtitle}</div>
         </div>
-        <div style={{ display: "flex", fontSize: 26, color: "#a1a1aa" }}>Day Nguyen · Forward Deployed & Product Engineer</div>
+        <div style={{ display: "flex", fontSize: 26, color: "#b8afa3" }}>Day Nguyen · Forward Deployed & Product Engineer</div>
       </div>
     ),
     ogSize,
