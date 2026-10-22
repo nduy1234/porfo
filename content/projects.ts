@@ -9,13 +9,6 @@ export const profile = {
   email: "nduy1234@gmail.com",
   github: "https://github.com/nduy1234",
   linkedin: "https://www.linkedin.com/in/daynguyen",
-  photo: "/day.png",
-  // Credential chips under the name.
-  credentials: [
-    { mark: "H", title: "AI Engineer", org: "Handshake" },
-    { mark: "A", title: "Founder", org: "Advan" },
-    { mark: "Hv", title: "ALM, Digital Media Design", org: "Harvard" },
-  ],
   // Proof numbers, all taken from the resume.
   stats: [
     { value: "25+", label: "products shipped to production" },
@@ -107,6 +100,8 @@ export type Project = {
   context: string;
   stack: string[];
   featured: boolean;
+  /** Card background tint (hex), mixed lightly into the card color. */
+  tint: string;
   /** Short bullets shown on the large featured cards. */
   highlights?: string[];
   code: string;
@@ -116,6 +111,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "aida",
+    tint: "#6366f1",
     title: "Aida",
     problem: "Scammers quote a real carrier's MC number, so every lookup passes. Brokers need to verify the caller, not just the number.",
     summary:
@@ -133,6 +129,7 @@ export const projects: Project[] = [
   },
   {
     slug: "lanewatch",
+    tint: "#f59e0b",
     title: "Lanewatch",
     problem: "Static fraud rule lists don't learn. A caught scammer calls the next broker with a new MC number and the same phone.",
     summary:
@@ -150,6 +147,7 @@ export const projects: Project[] = [
   },
   {
     slug: "rf-sentinel",
+    tint: "#0ea5e9",
     title: "RF-Sentinel",
     problem: "Cheap SDRs can jam or spoof Sub-GHz IoT, SCADA, and drone links, and SOC tools are blind to the physical layer.",
     summary:
@@ -167,6 +165,7 @@ export const projects: Project[] = [
   },
   {
     slug: "powerup",
+    tint: "#22c55e",
     title: "PowerUP",
     problem: "When the utility cuts power for wildfire risk, home batteries must stay full for the people who need them most, and no bad order can drain them.",
     summary:
@@ -184,49 +183,73 @@ export const projects: Project[] = [
   },
   {
     slug: "adai",
+    tint: "#ec4899",
     title: "AdAI",
     problem: "Getting quotes for a service job means calling vendor after vendor and comparing numbers that aren't itemized the same way.",
     summary:
       "A voice procurement agent: it turns a job spec (form or uploaded document) into vendor calls placed in parallel, captures itemized quotes from post-call webhooks, negotiates with the best real competing quote, and ranks the results.",
     context: "Voice procurement agent · July 2026",
     stack: ["Next.js", "TypeScript", "ElevenLabs", "Twilio", "Google Places", "OpenAI", "Supabase"],
-    featured: false,
+    featured: true,
+    highlights: [
+      "Vision-model job-spec intake, schema-validated and confirmed before any call",
+      "Parallel ElevenLabs + Twilio quote calls, one per vendor",
+      "Negotiates only with the best real competing quote; flags quotes under 70% of market",
+    ],
     code: "https://github.com/nduy1234/AdAI",
     demo: { href: "https://ad-ai-three.vercel.app", label: "Live app" },
   },
   {
     slug: "raise",
+    tint: "#8b5cf6",
     title: "Raise",
     problem: "Pre-seed founders burn hours building investor lists, and AI research tools happily invent investors.",
     summary:
       "An iMessage fundraising associate for founding teams. It researches investors with a source URL required for every record, drafts intros for human approval, and enforces who can approve inside a shared multiplayer thread.",
     context: "OpenClaw 2.0 hackathon · September 2026",
     stack: ["Python", "OpenClaw / Plow Hermes", "iMessage", "Docker"],
-    featured: false,
+    featured: true,
+    highlights: [
+      "Every investor record requires a source URL: no invented investors, no padded lists",
+      "Shared iMessage thread where only the owner or a co-founder can approve",
+      "Deterministic CLI enforces pipeline rules the model can't skip",
+    ],
     code: "https://github.com/nduy1234/Raise",
     demo: { href: "https://youtu.be/iiCXKVhJFuA", label: "Watch demo" },
   },
   {
     slug: "gaia-green-agent",
+    tint: "#14b8a6",
     title: "GAIA Green Agent",
     problem: "Agent benchmarks are hard to trust when you can't see or reproduce how an answer was reached.",
     summary:
       "A deterministic agent for the AgentX–AgentBeats competition that solves GAIA-style arithmetic problems with separate plan, act, and verify phases, exact Decimal math, and a JSON trace for every phase.",
     context: "AgentX–AgentBeats competition · 2026",
     stack: ["Python", "Decimal", "Docker", "GitHub Actions", "A2A over HTTP"],
-    featured: false,
+    featured: true,
+    highlights: [
+      "Separate plan, act, and verify phases with a JSON trace for each",
+      "Exact Decimal math through a custom parser, never eval",
+      "Deterministic: same input, same trace, every run",
+    ],
     code: "https://github.com/nduy1234/gaia-green-agent",
     demo: { href: "/demos/gaia-green-agent", label: "Interactive demo" },
   },
   {
     slug: "connectapp",
+    tint: "#f97316",
     title: "Connect",
     problem: "Early founders lack one place to find other startups, share resources, and reach out.",
     summary:
       "A mobile-first startup-networking app: email and Google OAuth sign-in, founder profiles, a startup directory, shared resources, and realtime notifications on Supabase, wrapped for iOS and Android with Capacitor.",
     context: "Mobile app · late 2025",
     stack: ["React", "TypeScript", "Supabase", "Capacitor", "Google OAuth", "Tailwind"],
-    featured: false,
+    featured: true,
+    highlights: [
+      "Email and Google OAuth sign-in on Supabase Auth",
+      "Row-level security on every table, hardened across migrations",
+      "Realtime notifications and a Capacitor shell for iOS and Android",
+    ],
     code: "https://github.com/nduy1234/connectapp",
     demo: { href: "/demos/connectapp", label: "Interactive demo" },
   },

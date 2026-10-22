@@ -36,29 +36,11 @@ const icons = {
 const iconLink = "inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-accent/60 hover:text-fg";
 
 export default function Home() {
-  const featured = projects.filter((p) => p.featured);
-  const more = projects.filter((p) => !p.featured);
-
   return (
     <div className="mx-auto max-w-3xl px-5">
       {/* Hero */}
       <section aria-labelledby="hero-title" className="rise pb-14 pt-16 sm:pt-24">
-        <div className="flex items-center gap-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={profile.photo}
-            alt={`Portrait of ${profile.name}`}
-            width={56}
-            height={56}
-            className="h-14 w-14 rounded-full object-cover ring-1 ring-border ring-offset-4 ring-offset-bg"
-          />
-          <p className="font-mono text-xs leading-relaxed text-faint">
-            AI Engineer · Forward Deployed
-            <br />
-            Product Engineer
-          </p>
-        </div>
-        <h1 id="hero-title" className="mt-8 font-serif text-6xl leading-[0.95] tracking-tight sm:text-8xl">
+        <h1 id="hero-title" className="font-serif text-6xl leading-[0.95] tracking-tight sm:text-8xl">
           {profile.name}
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
@@ -66,21 +48,7 @@ export default function Home() {
           <span className="text-fg">customer problem to working product in days</span>.
         </p>
 
-        <ul className="mt-8 flex flex-wrap gap-2" aria-label="Credentials">
-          {profile.credentials.map((c) => (
-            <li key={c.org} className="flex items-center gap-2.5 rounded-xl border border-border bg-card/70 py-1.5 pl-1.5 pr-3.5">
-              <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-lg bg-subtle font-serif text-sm text-accent">
-                {c.mark}
-              </span>
-              <span className="text-sm leading-tight">
-                <span className="block font-medium">{c.title}</span>
-                <span className="block font-mono text-[11px] text-faint">{c.org}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+        <div className="mt-10 flex flex-wrap items-center gap-3">
           <Link
             href="/#work"
             className="inline-flex h-11 items-center gap-2 rounded-full bg-fg px-5 text-sm font-medium text-bg transition-opacity hover:opacity-85"
@@ -125,15 +93,9 @@ export default function Home() {
         <SectionHead id="work" n="01" title="Selected work">
           Agents and ML systems built against real APIs and real data. Each case study covers the customer, the architecture, and the tradeoffs.
         </SectionHead>
-        <div className="space-y-4">
-          {featured.map((p, i) => (
+        <div className="space-y-5">
+          {projects.map((p, i) => (
             <ProjectCard key={p.slug} p={p} index={i} />
-          ))}
-        </div>
-        <h3 className="mb-4 mt-12 font-mono text-xs text-faint">More builds</h3>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {more.map((p) => (
-            <ProjectCard key={p.slug} p={p} />
           ))}
         </div>
       </section>
