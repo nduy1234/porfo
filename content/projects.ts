@@ -128,6 +128,24 @@ export const projects: Project[] = [
     demo: { href: "https://youtu.be/8E9mFA73ysE", label: "Watch demo" },
   },
   {
+    slug: "advan",
+    tint: "#3b82f6",
+    title: "Advan",
+    problem: "Support teams can't let AI send a reply it made up, leaks personal data, or breaks policy, so most review every draft by hand.",
+    summary:
+      "The company I founded: the trust layer for AI customer support. Every AI draft carries source citations, a confidence score, and policy checks, and anything uncertain waits for a human before it reaches the customer.",
+    context: "Founder, AI customer-support platform · 2025–2026",
+    stack: ["Next.js", "TypeScript", "LangGraph", "Temporal", "pgvector", "OPA/Rego", "tRPC", "Drizzle"],
+    featured: true,
+    highlights: [
+      "Temporal workflow pauses for human approval when confidence is below 85%",
+      "Four-signal confidence score: retrieval, grounding, hallucination, policy",
+      "OPA policy gates, PII masking, and an audit log on every AI draft",
+    ],
+    code: "https://github.com/nduy1234/advan",
+    demo: { href: "https://www.advanai.net/", label: "Live site" },
+  },
+  {
     slug: "lanewatch",
     tint: "#f59e0b",
     title: "Lanewatch",
@@ -180,6 +198,41 @@ export const projects: Project[] = [
     ],
     code: "https://github.com/nduy1234/PowerUp",
     demo: { href: "https://mrbese.github.io/PowerUp/", label: "Live demo" },
+  },
+  {
+    slug: "docktwin",
+    tint: "#06b6d4",
+    title: "DockTwin",
+    problem: "Port terminals run on signals that disagree, and planners resolve the collisions by hand with rules nobody has tested.",
+    summary:
+      "Describe a container terminal in words, speech, or a photo and get a programmable 3D digital twin; then an agent stress-tests its rules against conflicting real-world signals and proves every fix by re-simulation.",
+    context: "Meta Global AI Developer Hackathon · November 2026",
+    stack: ["Next.js", "TypeScript", "Muse Spark", "SAM 3.1", "Muse Voice Transcribe", "React Three Fiber", "Zod"],
+    featured: true,
+    highlights: [
+      "Voice, text, or photo becomes a 3D port twin via Muse Spark, SAM 3.1, and Muse Voice",
+      "Agent-proposed rule fixes proven by deterministic, seeded re-simulation",
+      "Safety floors outside model control, plus a SHA-256 hash-chained audit log",
+    ],
+    code: "https://github.com/nduy1234/DockTwin",
+    demo: { href: "https://docktwin.vercel.app", label: "Live demo" },
+  },
+  {
+    slug: "connector-ai",
+    tint: "#eab308",
+    title: "AI Connector",
+    problem: "Every enterprise has a legacy system with quirks nobody wrote down, so each new agent connector rediscovers them from scratch.",
+    summary:
+      "Turns a system's docs plus tribal notes from the client's engineers into a typed spec and a working TypeScript MCP server, tests every tool against the system, and learns each quirk for the next connector.",
+    context: "Agent connector builder · October 2026",
+    stack: ["Next.js", "TypeScript", "Claude", "MCP", "Zod", "SQLite"],
+    featured: true,
+    highlights: [
+      "Docs plus tribal notes become a typed spec and a standalone TypeScript MCP server",
+      "Tribal rules enforced in code: silent-200 checks, pagination, re-auth, time windows",
+      "Pattern Library learns each quirk; the second demo connector reuses 3 of 4",
+    ],
+    code: "https://github.com/nduy1234/connectorAI",
   },
   {
     slug: "adai",
