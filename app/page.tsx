@@ -43,11 +43,6 @@ export default function Home() {
         <h1 id="hero-title" className="font-serif text-6xl leading-[0.95] tracking-tight sm:text-8xl">
           {profile.name}
         </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
-          I ship <span className="text-fg">customer-facing AI agents</span>: voice AI, fraud detection, and workflow automation. I go from{" "}
-          <span className="text-fg">customer problem to working product in days</span>.
-        </p>
-
         <div className="mt-10 flex flex-wrap items-center gap-3">
           <Link
             href="/#work"
