@@ -236,6 +236,24 @@ export const projects: Project[] = [
     demo: { href: "/demos/connector-ai", label: "Interactive demo" },
   },
   {
+    slug: "specbot",
+    tint: "#84cc16",
+    title: "SpecBot",
+    problem: "Putting a frontier model behind every robot command is expensive, and a model planning physical work can be confidently wrong.",
+    summary:
+      "Text a warehouse robot fleet over iMessage. A cost-aware router sends each command to the cheapest brain that can handle it, a plain-code safety validator checks every plan, and robots carry it out live in a shared 3D sim.",
+    context: "Night Hack · October 2026",
+    stack: ["TypeScript", "React", "Convex", "Claude Haiku & Opus", "Photon iMessage", "Firecrawl", "three.js"],
+    featured: true,
+    highlights: [
+      "Four-tier router: free, cached skill, Haiku, then Opus only when needed",
+      "Deterministic safety validator blocks unsafe plans with a plain-English reason",
+      "Costs from real token usage vs a measured all-frontier baseline",
+    ],
+    code: "https://github.com/nduy1234/SpecBot",
+    demo: { href: "https://specbot-text.vercel.app", label: "Live demo" },
+  },
+  {
     slug: "adai",
     tint: "#ec4899",
     title: "AdAI",
