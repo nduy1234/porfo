@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Connector demo | Day Nguyen</title>
+<meta name="description" content="Interactive demo of AI Connector: docs and tribal notes become a typed spec and an MCP server, every tool is tested, and quirks are learned for the next connector.">
+<style>
+:root{--bg:#0b0d10;--card:#13161b;--fg:#e8eaed;--mut:#9aa0a6;--bd:#262a31;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;--ac:#facc15;--bl:#93c5fd}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+header{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--bd)}
+h1{font-size:15px;margin:0}.badge{font-size:12px;color:var(--mut);border:1px solid var(--bd);border-radius:99px;padding:2px 10px}
+a{color:var(--ac)}button{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:6px;padding:6px 12px;cursor:pointer;font:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.bar{height:3px;background:var(--bd)}.bar i{display:block;height:100%;width:0;background:var(--ac)}
+.steps{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px 0}.steps span{font-size:12px;border:1px solid var(--bd);border-radius:99px;padding:3px 10px;color:var(--mut);transition:all .3s}
+.steps span.on{color:#111;background:var(--ac);border-color:var(--ac)}.steps span.done{color:var(--ok);border-color:#1f5f47}
+main{display:grid;gap:12px;padding:12px 16px 16px}@media(min-width:900px){main{grid-template-columns:1fr 1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;min-height:200px}.card h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);margin:0 0 8px;display:flex;justify-content:space-between}
+pre{margin:0;white-space:pre-wrap;font:12px/1.55 ui-monospace,Menlo,Consolas,monospace;color:#d1d5db}
+.note{color:var(--warn)}.k{color:var(--bl)}.s{color:var(--ok)}.m{color:var(--mut)}
+ul{list-style:none;margin:0;padding:0}li{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid var(--bd);font-size:13px}
+.tag{font:11px ui-monospace,Menlo,monospace;border-radius:99px;padding:1px 8px;white-space:nowrap}.pass{color:#052e1c;background:var(--ok)}.blocked{color:#3b2a00;background:var(--warn)}.run{color:var(--mut);border:1px solid var(--bd)}
+.reuse{display:none;margin-bottom:8px;font-size:13px;border:1px solid #5b4b0a;background:#221d06;color:#fde68a;border-radius:8px;padding:8px}
+.pill{font:11px ui-monospace,Menlo,monospace;color:#111;background:var(--ac);border-radius:99px;padding:1px 8px}
+</style>
+</head>
+<body>
+<header>
+  <h1>AI Connector · docs + tribal notes → MCP server</h1>
+  <span class="badge">Sample data</span>
+  <span><button id="replay">Replay</button> <a href="/work/connector-ai">Case study</a></span>
+</header>
+<div class="bar"><i id="prog"></i></div>
+<div class="steps" aria-label="Pipeline steps">
+  <span id="st0">1 · Retrieve patterns</span><span id="st1">2 · Extract spec</span><span id="st2">3 · Generate MCP server</span><span id="st3">4 · Test tools</span><span id="st4">5 · Learn quirks</span>
+</div>
+<main>
+  <section class="card"><h2><span>Input</span><span id="sys" class="pill">AcmeERP</span></h2><pre id="input" aria-live="polite"></pre></section>
+  <section class="card"><h2><span>ConnectorSpec → codegen</span></h2><div id="reuse" class="reuse"></div><pre id="spec"></pre></section>
+  <section class="card">
+    <h2><span>Try it</span><span id="score" class="m"></span></h2>
+    <ul id="tests"></ul>
+    <h2 style="margin-top:14px"><span>Pattern Library</span><span id="pcount" class="m">0 patterns</span></h2>
+    <ul id="lib"></ul>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id);let D=30000,T=[],t0,raf;
+const lib=new Map();
+const systems=[
+ {name:"AcmeERP",
+  input:[["k","# AcmeERP API docs"],["","GET /orders?pg=1   POST /orders   POST /sync"],["","Auth: POST /token  expires_in: 30"],["",""],["note","# Notes from Dana (Acme IT)"],["note","- errors come back as HTTP 200 {\"status\":\"ERROR\"}"],["note","- token actually dies after ~3 calls"],["note","- /sync is locked 9am-5pm, don't run it"],["note","- only 2 results per page, follow `more`"]],
+  rules:[["silentError","status == \"ERROR\" → fail"],["pagination","page ?pg=, follow `more`"],["refreshOn401","re-auth and retry once"],["blockedHours","sync: 09:00-17:00"]],
+  tools:[["list_orders","pass"],["get_order","pass"],["create_order","pass"],["sync_inventory","blocked"],["list_customers","pass"]],
+  learn:["silent-200-errors","legacy-pagination","token-refresh-401","business-hours-lock"],reuse:[]},
+ {name:"ShipTrack",
+  input:[["k","# ShipTrack API docs"],["","GET /shipments?page=1   GET /track/:id   POST /labels"],["","Auth: session token"],["",""],["note","# Notes from Marco (maintainer)"],["note","- failures are 200 with {\"ok\":false}"],["note","- session expires after 3 requests"],["note","- tracking IDs must be UPPERCASE"],["note","- labels need weight_kg even though docs omit it"]],
+  rules:[["silentError","ok == false → fail"],["pagination","page ?page=, follow `has_next`"],["refreshOn401","re-auth and retry once"],["normalize","tracking_id → UPPERCASE"],["required","labels.weight_kg"]],
+  tools:[["list_shipments","pass"],["track_shipment","pass"],["create_label","pass"],["get_rates","pass"]],
+  learn:["silent-200-errors","legacy-pagination","token-refresh-401","uppercase-ids","hidden-required-field"],reuse:["silent 200 errors","legacy pagination","token refresh"]}];
+const PACE=1.5;function at(ms,fn){T.push(setTimeout(fn,ms*PACE))}
+function step(i){for(let j=0;j<5;j++){$("st"+j).className=j<i?"done":j===i?"on":""}}
+function line(el,cls,txt){const s=document.createElement("span");if(cls)s.className=cls;s.textContent=txt+"\n";el.append(s)}
+function renderLib(){$("lib").innerHTML=[...lib].map(([k,n])=>`<li><span class="mono">${k}</span><span class="tag ${n>1?"pass":"run"}">seen ${n}×</span></li>`).join("");$("pcount").textContent=lib.size+" patterns"}
+function runSystem(sys,base){
+ at(base,()=>{$("sys").textContent=sys.name;$("input").textContent="";$("spec").textContent="";$("tests").innerHTML="";$("score").textContent="";$("reuse").style.display="none";step(0)});
+ sys.input.forEach(([c,t],i)=>at(base+300+i*260,()=>line($("input"),c==="note"?"note":c==="k"?"k":"",t)));
+ const t1=base+300+sys.input.length*260+200;
+ at(t1,()=>{if(sys.reuse.length){$("reuse").style.display="block";$("reuse").textContent="Applied "+sys.reuse.length+" learned patterns: "+sys.reuse.join(", ")+"."}step(1);line($("spec"),"m","// Claude → Zod-validated ConnectorSpec");line($("spec"),"k",`system: "${sys.name}"`);line($("spec"),"","rules:")});
+ sys.rules.forEach(([k,v],i)=>at(t1+400+i*350,()=>line($("spec"),"s",`  ${k}: ${v}`)));
+ const t2=t1+400+sys.rules.length*350+200;
+ at(t2,()=>{step(2);line($("spec"),"","");line($("spec"),"m","// deterministic template → server.ts");line($("spec"),"","new McpServer({ name: \""+sys.name.toLowerCase()+"\" })");line($("spec"),"","  "+sys.tools.length+" tools registered · StdioServerTransport");line($("spec"),"s","  ↓ download server.ts")});
+ const t3=t2+900;
+ at(t3,()=>{step(3);$("tests").innerHTML=sys.tools.map(([n])=>`<li><span>${n}</span><span class="tag run" id="t-${n}">running…</span></li>`).join("")});
+ let passed=0;
+ sys.tools.forEach(([n,r],i)=>at(t3+400+i*420,()=>{const e=$("t-"+n);e.className="tag "+r;e.textContent=r==="blocked"?"blocked · SYNC_LOCKED":"pass";if(r==="pass")passed++;$("score").textContent=passed+" pass"+(sys.tools.some(x=>x[1]==="blocked")?" · 1 blocked by rule":"")}));
+ const t4=t3+400+sys.tools.length*420+200;
+ at(t4,()=>{step(4);sys.learn.forEach(k=>lib.set(k,(lib.get(k)||0)+1));renderLib()});
+ at(t4+700,()=>step(5));
+ return t4+1100;
+}
+function start(){T.forEach(clearTimeout);T=[];cancelAnimationFrame(raf);lib.clear();renderLib();
+ const ms=runSystem(systems[0],0);D=runSystem(systems[1],ms+600)*PACE;
+ t0=performance.now();const tick=n=>{const p=(n-t0)/D*100;$("prog").style.width=Math.min(100,p)+"%";if(p<100)raf=requestAnimationFrame(tick)};raf=requestAnimationFrame(tick)}
+$("replay").onclick=start;start();
+</script>
+</body>
+</html>

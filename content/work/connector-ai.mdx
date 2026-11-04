@@ -8,6 +8,8 @@ AI Connector turns the docs plus those tribal notes into a working MCP server, t
 
 ## What I built
 
+<Demo src="/demos/connector-ai" title="Interactive demo: two legacy systems, one learning Pattern Library" />
+
 - **Spec extraction.** Claude reads the docs and the engineer's notes and returns a typed `ConnectorSpec`, parsed and validated with Zod. When the notes contradict the docs, the notes win.
 - **Quirks as structure, not prose.** The spec has fields for each kind of quirk: silent errors, page or cursor pagination, blocked hours, parameter normalization, and re-auth on 401. Handlers enforce them in code instead of hoping the agent reads a description.
 - **Deterministic codegen.** A template turns the spec into a standalone TypeScript MCP server (one tool per action, tribal rules embedded in each tool description) that you can download.

@@ -233,6 +233,7 @@ export const projects: Project[] = [
       "Pattern Library learns each quirk; the second demo connector reuses 3 of 4",
     ],
     code: "https://github.com/nduy1234/connectorAI",
+    demo: { href: "/demos/connector-ai", label: "Interactive demo" },
   },
   {
     slug: "adai",
